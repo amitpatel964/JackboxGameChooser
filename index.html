@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="style.css" type="text/css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jackbox Game Chooser</title>
+    <link href="style.css" type="text/css" rel="stylesheet">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
@@ -16,44 +17,44 @@
     </header>
     <main>
         <div>
-            <input type="checkbox" id="jackboxPack1" name="jackboxPack1" value="Pack1">
+            <input type="checkbox" id="jackboxPack1" name="hasPack1" onclick="searchCheckbox(this)" checked>
             <label for="jackboxPack1">Jackbox Party Pack 1</label>
-            <input type="checkbox" id="jackboxPack2" name="jackboxPack2" value="Pack2">
+            <input type="checkbox" id="jackboxPack2" name="hasPack2" onclick="searchCheckbox(this)" checked>
             <label for="jackboxPack2">Jackbox Party Pack 2</label>
-            <input type="checkbox" id="jackboxPack3" name="jackboxPack3" value="Pack3">
+            <input type="checkbox" id="jackboxPack3" name="hasPack3" onclick="searchCheckbox(this)" checked>
             <label for="jackboxPack3">Jackbox Party Pack 3</label>
-            <input type="checkbox" id="jackboxPack4" name="jackboxPack4" value="Pack4">
+            <input type="checkbox" id="jackboxPack4" name="hasPack4" onclick="searchCheckbox(this)" checked>
             <label for="jackboxPack4">Jackbox Party Pack 4</label>
-            <input type="checkbox" id="jackboxPack5" name="jackboxPack5" value="Pack5">
+            <input type="checkbox" id="jackboxPack5" name="hasPack5" onclick="searchCheckbox(this)" checked>
             <label for="jackboxPack5">Jackbox Party Pack 5</label>
-            <input type="checkbox" id="jackboxPack6" name="jackboxPack6" value="Pack6">
+            <input type="checkbox" id="jackboxPack6" name="hasPack6" onclick="searchCheckbox(this)" checked>
             <label for="jackboxPack6">Jackbox Party Pack 6</label>
-            <input type="checkbox" id="jackboxPack7" name="jackboxPack7" value="Pack7">
+            <input type="checkbox" id="jackboxPack7" name="hasPack7" onclick="searchCheckbox(this)" checked>
             <label for="jackboxPack7">Jackbox Party Pack 7</label>
-            <input type="checkbox" id="jackboxPack8" name="jackboxPack8" value="Pack8">
+            <input type="checkbox" id="jackboxPack8" name="hasPack8" onclick="searchCheckbox(this)" checked>
             <label for="jackboxPack8">Jackbox Party Pack 8</label>
         </div>
         <div>
-            <input type="checkbox" id="gameTypeTrivia" name="gameTypeTrivia" value="Trivia">
+            <input type="checkbox" id="gameTypeTrivia" name="triviaGamesFilter" onclick="searchCheckbox(this)">
             <label for="gameTypeTrivia">Trivia</label>
-            <input type="checkbox" id="gameTypeDrawing" name="gameTypeDrawing" value="Drawing">
+            <input type="checkbox" id="gameTypeDrawing" name="drawingGamesFilter" onclick="searchCheckbox(this)">
             <label for="gameTypeDrawing">Drawing</label>
-            <input type="checkbox" id="gameTypeFillInTheBlank" name="gameTypeFillInTheBlank" value="FillInTheBlank">
+            <input type="checkbox" id="gameTypeFillInTheBlank" name="fillInTheBlankGamesFilter" onclick="searchCheckbox(this)">
             <label for="gameTypeFillInTheBlank">Fill in the Blank</label>
-            <input type="checkbox" id="gameTypeOther" name="gameTypeOther" value="Other">
+            <input type="checkbox" id="gameTypeOther" name="otherGamesFilter" onclick="searchCheckbox(this)">
             <label for="gameTypeOther">Other</label>
         </div>
         <div>
-            <input type="checkbox" id="audienceAllowed" name="audienceAllowed" value="Audience">
+            <input type="checkbox" id="audienceAllowed" name="audienceAllowedGamesFilter" onclick="searchCheckbox(this)">
             <label for="audienceAllowed">Audience Allowed</label>
-            <input type="checkbox" id="familyFriendly" name="familyFriendly" value="FamilyFriendly">
+            <input type="checkbox" id="familyFriendly" name="familyFriendlyGamesFilter" onclick="searchCheckbox(this)">
             <label for="familyFriendly">Family Friendly</label>
         </div>
         <div>
-            <input type="text" id="numberOfPlayers" name="numberOfPlayers">
+            <input type="text" id="numberOfPlayers" name="numberOfPlayers" onkeydown="searchPlayerNumber(this)">
             <label for="numberOfPlayers">Number of Players</label>
         </div>
-        <table>
+        <table id="gamesTable">
             <tr>
                 <th>Game Name</th>
                 <th>Pack</th>
