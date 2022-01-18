@@ -72,6 +72,9 @@ filters.push(new Filter("audienceAllowedGamesFilter", false));
 filters.push(new Filter("familyFriendlyGamesFilter", false));
 var numberOfPlayersFilter = -1;
 
+// Number of Jackbox games
+const numberOfJackBoxGames = 8;
+
 // Build array of games from table data
 var arrayOfGames = [];
 var rows = document.getElementById("gamesTable").rows;
@@ -124,7 +127,29 @@ function searchPlayerNumber(element) {
  * 
  */
 function filterTable() {
-    // for (var i = 0; i < filters.length; i++) {
-    //     console.log(filters[i].getFilterName() + " " + filters[i].getFilterValue());
-    // }
+    // Reset display for each row to show all of the rows at first
+    for (var i = 1; i < rows.length; i++) {
+        rows[i].style.display = '';
+    }
+
+    // document.getElementById('Drawful').style.display = 'none';
+
+    // Check if the user has packs 1 - 8
+    for (var j = 1; j <= numberOfJackBoxGames; j++) {
+        if (filters[j-1].getFilterValue()) {
+            for (var i = 0; i < arrayOfGames.length; i++) {
+                if (arrayOfGames[i].getPackNumber() == j) {
+                    rows[i+1].style.display = '';
+                }
+            }
+        } else {
+            for (var i = 0; i < arrayOfGames.length; i++) {
+                if (arrayOfGames[i].getPackNumber() == j) {
+                    rows[i+1].style.display = 'none';
+                }
+            }
+        }
+    }
+
+
 }
