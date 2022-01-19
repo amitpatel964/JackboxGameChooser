@@ -75,6 +75,14 @@ var numberOfPlayersFilter = -1;
 // Number of Jackbox games
 const numberOfJackBoxGames = 8;
 
+// Index number of certain filters in the filters array
+const triviaGamesFilterIndex = 8;
+const drawingGamesFilterIndex = 9;
+const fillInTheBlankGamesFilterIndex = 10;
+const otherGamesFilterIndex = 11;
+const audienceAllowedGamesFilterIndex = 12;
+const familyFriendlyGamesFilterIndex = 13;
+
 // Build array of games from table data
 var arrayOfGames = [];
 var rows = document.getElementById("gamesTable").rows;
@@ -84,10 +92,6 @@ for (var i = 1; i < rows.length; i++) {
         rows[i].cells[5].innerHTML);
     arrayOfGames.push(game);
 }
-
-// for (var i = 0; i < arrayOfGames.length; i++) {
-//     console.log(arrayOfGames[i].getGameName() + " " + arrayOfGames[i].getPackNumber() + " " + arrayOfGames[i].getNumberOfPlayers() + " " + arrayOfGames[i].getGameType() + " " + arrayOfGames[i].getAudiencedAllowed() + " " + arrayOfGames[i].getFamilyFriendly());
-// }
 
 /**
  * This function is called whenever the user clicks on one of the checkboxes.
@@ -115,8 +119,9 @@ function searchCheckbox(checkbox) {
  * @param element 
  */
 function searchPlayerNumber(element) {
-    if (event.key == 'Enter') {
-        alert(element.value);
+    if (element.value == "") {
+        numberOfPlayersFilter = -1;
+    } else {
         numberOfPlayersFilter = element.value;
     }
     filterTable();
@@ -132,24 +137,88 @@ function filterTable() {
         rows[i].style.display = '';
     }
 
-    // document.getElementById('Drawful').style.display = 'none';
+    // Check to see if any of the game type filters are checked
+    // If so, only show games that have the checkmarked game type
+    if (filters[triviaGamesFilterIndex].getFilterValue() || filters[drawingGamesFilterIndex].getFilterValue() || 
+    filters[fillInTheBlankGamesFilterIndex].getFilterValue() || filters[otherGamesFilterIndex].getFilterValue()) {
+        
+        for (var i = 1; i < rows.length; i++) {
+            rows[i].style.display = 'none';
+        }
 
-    // Check if the user has packs 1 - 8
-    for (var j = 1; j <= numberOfJackBoxGames; j++) {
-        if (filters[j-1].getFilterValue()) {
-            for (var i = 0; i < arrayOfGames.length; i++) {
-                if (arrayOfGames[i].getPackNumber() == j) {
-                    rows[i+1].style.display = '';
+        // Show trivia games if trivia is checkmarked
+        if (filters[triviaGamesFilterIndex].getFilterValue()) {
+            for (var j = 0; j < arrayOfGames.length; j++) {
+                if (arrayOfGames[j].getGameType().includes("Trivia")) {
+                    rows[j+1].style.display = '';
                 }
             }
-        } else {
-            for (var i = 0; i < arrayOfGames.length; i++) {
-                if (arrayOfGames[i].getPackNumber() == j) {
-                    rows[i+1].style.display = 'none';
+        }
+
+        // Show drawing games if drawing is checkmarked
+        if (filters[drawingGamesFilterIndex].getFilterValue()) {
+            for (var j = 0; j < arrayOfGames.length; j++) {
+                if (arrayOfGames[j].getGameType().includes("Drawing")) {
+                    rows[j+1].style.display = '';
+                }
+            }
+        }
+
+        // Show fill in the blank games if fill in the blank is checkmarked
+        if (filters[fillInTheBlankGamesFilterIndex].getFilterValue()) {
+            for (var j = 0; j < arrayOfGames.length; j++) {
+                if (arrayOfGames[j].getGameType().includes("Fill in the Blank")) {
+                    rows[j+1].style.display = '';
+                }
+            }
+        }
+
+        // Show other games if other is checkmarked
+        if (filters[otherGamesFilterIndex].getFilterValue()) {
+            for (var j = 0; j < arrayOfGames.length; j++) {
+                if (arrayOfGames[j].getGameType().includes("Other")) {
+                    rows[j+1].style.display = '';
                 }
             }
         }
     }
 
+    // Check if only games with an audience should be shown
+    if (filters[audienceAllowedGamesFilterIndex].getFilterValue()) {
+        for (var i = 0; i < arrayOfGames.length; i++) {
+            if (arrayOfGames[i].getAudiencedAllowed() == "No") {
+                rows[i+1].style.display = 'none';
+            }
+        }
+    }
 
+    // Check if only games that are or can be family friendly should be shown
+    if (filters[familyFriendlyGamesFilterIndex].getFilterValue()) {
+        for (var i = 0; i < arrayOfGames.length; i++) {
+            if (arrayOfGames[i].getFamilyFriendly() == "No") {
+                rows[i+1].style.display = 'none';
+            }
+        }
+    }
+
+    // Check if the user has packs 1 - 8
+    for (var j = 1; j <= numberOfJackBoxGames; j++) {
+        if (!filters[j-1].getFilterValue()) {
+            for (var i = 0; i < arrayOfGames.length; i++) {
+                if (arrayOfGames[i].getPackNumber() == j) {
+                    rows[i+1].style.display = 'none';
+                }
+            }
+        } 
+    }
+
+    // Check if the user entered a number for the number of players
+    if (numberOfPlayersFilter != -1) {
+        for (var i = 0; i < arrayOfGames.length; i++) {
+            var bounds = arrayOfGames[i].getNumberOfPlayers().split("-");
+            if (numberOfPlayersFilter < parseInt(bounds[0]) || numberOfPlayersFilter > parseInt(bounds[1])) {
+                rows[i+1].style.display = 'none';
+            }
+        }
+    }
 }
