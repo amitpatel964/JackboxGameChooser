@@ -16,6 +16,9 @@
         </p>
     </header>
     <main>
+        <p>
+            Games
+        </p>
         <div>
             <input type="checkbox" id="jackboxPack1" name="hasPack1" onclick="searchCheckbox(this)" checked>
             <label for="jackboxPack1">Jackbox Party Pack 1</label>
@@ -34,6 +37,9 @@
             <input type="checkbox" id="jackboxPack8" name="hasPack8" onclick="searchCheckbox(this)" checked>
             <label for="jackboxPack8">Jackbox Party Pack 8</label>
         </div>
+        <p>
+            Game Types
+        </p>
         <div>
             <input type="checkbox" id="gameTypeTrivia" name="triviaGamesFilter" onclick="searchCheckbox(this)">
             <label for="gameTypeTrivia">Trivia</label>
@@ -44,6 +50,9 @@
             <input type="checkbox" id="gameTypeOther" name="otherGamesFilter" onclick="searchCheckbox(this)">
             <label for="gameTypeOther">Other</label>
         </div>
+        <p>
+            Additional Filters
+        </p>
         <div>
             <input type="checkbox" id="audienceAllowed" name="audienceAllowedGamesFilter" onclick="searchCheckbox(this)">
             <label for="audienceAllowed">Audience Allowed</label>
@@ -53,6 +62,13 @@
         <div>
             <input type="text" id="numberOfPlayers" name="numberOfPlayers" oninput="searchPlayerNumber(this)">
             <label for="numberOfPlayers">Number of Players</label>
+        </div>
+        <p>
+            Game chooser
+        </p>
+        <div>
+            <button id="gameChooser" name="randomGameChooser" onclick="">
+            <label for="gameChooser">Pick a game for me</label>
         </div>
         <table id="gamesTable">
             <tr>
