@@ -128,6 +128,27 @@ function searchPlayerNumber(element) {
 }
 
 /**
+ * This function is used when the user presses the pick a game for me button.
+ * It will randomly choose a game from the table.
+ * 
+ */
+function pickRandomGameFromList() {
+    var games = [];
+
+    for (var i = 1; i < rows.length; i++) {
+        if (rows[i].style.display == '') {
+            games.push(rows[i].cells[0].innerHTML);
+        }
+    }
+
+    if (games.length == 0) {
+        alert("No games are present in the table");
+    } else {
+        alert(games[Math.floor(Math.random()*games.length)]);
+    }
+}
+
+/**
  * This function is called to change the enteries of the table depending on the conditions the user sets.
  * 
  */
